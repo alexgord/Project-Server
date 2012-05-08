@@ -1,9 +1,15 @@
 
 public class Game {
 	
+	private Board board;
+	
 	public Game() {
-		Board board1 = new Board();
-		System.out.println(board1.toString());
+		board = new Board();
+		//System.out.println(board1.toString());
+	}
+
+	public Board getBoard() {
+		return board;
 	}
 	
 	
