@@ -6,20 +6,25 @@ public class Board {
 		board = new Piece[6][6];
 		
 		int count = 0;
-		Piece temp = new Piece();
+		Piece temp;
 		while (count < 6) {
-			temp.color = ColorEnum.WHITE;
-			temp.piece = PieceEnum.PAWN;
-			board[1][count] = temp;
+			temp = new Piece();
 			temp.color = ColorEnum.BLACK;
 			temp.piece = PieceEnum.PAWN;
+			board[1][count] = temp;
+			temp = new Piece();
+			temp.color = ColorEnum.WHITE;
+			temp.piece = PieceEnum.PAWN;
 			board[4][count] = temp;
+			count++;
 		}
-		temp.color = ColorEnum.WHITE;
+		temp = new Piece();
+		temp.color = ColorEnum.BLACK;
 		temp.piece = PieceEnum.KNIGHT;
 		board[0][1] = temp;
 		board[0][4] = temp;
-		temp.color = ColorEnum.BLACK;
+		temp = new Piece();
+		temp.color = ColorEnum.WHITE;
 		temp.piece = PieceEnum.KNIGHT;
 		board[5][1] = temp;
 		board[5][4] = temp;
@@ -39,11 +44,15 @@ public class Board {
 				if (board[cx][cy] == null) 
 					output += "  |";
 				else
-					output += board[cx][cy] + "|";
+					output += board[cx][cy].toString() + "|";
+				cy++;
 			}
+			cy = 0;
 			output += "\n";
+			output += " -------------------\n";
+			cx++;
 		}
-		output += " -------------------\n";
+		output += "  a  b  c  d  e  f\n";
 		return output;
 	}
 }
