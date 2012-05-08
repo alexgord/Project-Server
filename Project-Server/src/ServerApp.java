@@ -1,26 +1,52 @@
 import java.io.IOException;
-import java.net.InetSocketAddress;
-
-import javax.xml.ws.http.HTTPException;
-
-import com.sun.net.httpserver.HttpServer;
-
+import java.io.PrintStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
 
 public class ServerApp  {
 
+	final private static int DEFAULT_PORT = 9999;
+	
 	/**
 	 * @param args
 	 * @throws IOException 
 	 * @throws HTTPException 
 	 */
-	public static void main(String[] args) throws HTTPException, IOException
+	public static void main(String[] args) throws IOException
 	{
-		//MessageList messageList = new MessageList();
-		//HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
-		//server.createContext("/", new EchoServer());
-	    //server.setExecutor(null); // creates a default executor
-	   // server.start();
-		@SuppressWarnings("unused")
-		Game game1 = new Game();
+		//@SuppressWarnings("unused")
+		//Game game1 = new Game();
+
+		int port = args.length > 0 ? Integer.parseInt(args[0]) :  DEFAULT_PORT;
+		ServerSocket server = null;
+		try {
+			server = new ServerSocket(port);
+		} catch (IOException e) {
+			System.err.println("Could not listen on port: " + port + ".");
+			System.exit(-1);
+		}
+		System.out.println("Listening on port: " + port + ".");
+
+
+		// Now listen for a client
+		int count = 0;
+		while(true) {
+			try {
+				Conversation conv = new Conversation(Integer.toString(++count));
+				System.out.println("Starting conversation " + count + ".");
+
+				conv.setPerson(1, server.accept());
+				System.out.println("First person has joined.");
+
+				conv.setPerson(2, server.accept());
+				System.out.println("Second person has joined.");
+
+				conv.start();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
