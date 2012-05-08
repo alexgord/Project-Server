@@ -1,19 +1,49 @@
 
 public class Board {
-	PieceEnum board[][];
+	Piece[][] board;
 	
 	public Board() {
-		board = new PieceEnum[6][6];
+		board = new Piece[6][6];
 		
-	}
-	
-	public void initialize() {
 		int count = 0;
+		Piece temp = new Piece();
 		while (count < 6) {
-			board[0][count] = PieceEnum.PAWN;
-			board[5][count] = PieceEnum.PAWN;
+			temp.color = ColorEnum.WHITE;
+			temp.piece = PieceEnum.PAWN;
+			board[1][count] = temp;
+			temp.color = ColorEnum.BLACK;
+			temp.piece = PieceEnum.PAWN;
+			board[4][count] = temp;
 		}
+		temp.color = ColorEnum.WHITE;
+		temp.piece = PieceEnum.KNIGHT;
+		board[0][1] = temp;
+		board[0][4] = temp;
+		temp.color = ColorEnum.BLACK;
+		temp.piece = PieceEnum.KNIGHT;
+		board[5][1] = temp;
+		board[5][4] = temp;
 		
 	}
 	
+	public String toString() {
+		int cx = 0;
+		int cy = 0;
+		String output;
+		output = " -------------------\n";
+		
+		while (cx < 6) {
+			output += 6-cx;
+			output += "|";
+			while (cy < 6) {
+				if (board[cx][cy] == null) 
+					output += "  |";
+				else
+					output += board[cx][cy] + "|";
+			}
+			output += "\n";
+		}
+		output += " -------------------\n";
+		return output;
+	}
 }

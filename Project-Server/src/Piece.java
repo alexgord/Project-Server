@@ -1,5 +1,6 @@
 
-public abstract class Piece {
-	char color;
+public class Piece {
+	ColorEnum color;
+	PieceEnum piece;
 	
 }

@@ -16,9 +16,11 @@ public class ServerApp  {
 	public static void main(String[] args) throws HTTPException, IOException
 	{
 		//MessageList messageList = new MessageList();
-		HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
-		server.createContext("/", new EchoServer());
-	    server.setExecutor(null); // creates a default executor
-	    server.start();
+		//HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+		//server.createContext("/", new EchoServer());
+	    //server.setExecutor(null); // creates a default executor
+	   // server.start();
+		@SuppressWarnings("unused")
+		Game game1 = new Game();
 	}
 }
