@@ -1,6 +1,12 @@
+import java.io.Serializable;
 
-public class Move
+
+public class Move implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -139159666929346553L;
 	private BoardPosition a;
 	private BoardPosition b;
 	

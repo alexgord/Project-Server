@@ -20,9 +20,12 @@ public class ServerApp  {
 
 		int port = args.length > 0 ? Integer.parseInt(args[0]) :  DEFAULT_PORT;
 		ServerSocket server = null;
-		try {
+		try
+		{
 			server = new ServerSocket(port);
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			System.err.println("Could not listen on port: " + port + ".");
 			System.exit(-1);
 		}
@@ -31,8 +34,10 @@ public class ServerApp  {
 
 		// Now listen for a client
 		int count = 0;
-		while(true) {
-			try {
+		while(true)
+		{
+			try 
+			{
 				Conversation conv = new Conversation(Integer.toString(++count));
 				System.out.println("Starting conversation " + count + ".");
 
@@ -44,7 +49,9 @@ public class ServerApp  {
 
 				conv.start();
 
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				e.printStackTrace();
 			}
 		}
