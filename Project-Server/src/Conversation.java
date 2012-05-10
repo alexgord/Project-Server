@@ -39,10 +39,13 @@ public class Conversation extends Thread
 
 		try
 		{
+			out1 = new ObjectOutputStream(p1.getOutputStream());
+			out1.flush();
+			out2 = new ObjectOutputStream(p2.getOutputStream());
+			out2.flush();
 			in1 = new ObjectInputStream(p1.getInputStream());
 			in2 = new ObjectInputStream(p2.getInputStream());
-			out1 = new ObjectOutputStream(new PrintStream(p1.getOutputStream()));
-			out2 = new ObjectOutputStream(new PrintStream(p2.getOutputStream()));
+			
 		}
 		catch (IOException e)
 		{
@@ -62,7 +65,9 @@ public class Conversation extends Thread
 		try
 		{
 			out1.writeObject("1");//.println("1");
+			out1.flush();
 			out2.writeObject("2");
+			out2.flush();
 
 			/*name1 = in1.nextLine();
 			System.out.println("First person is " + name1);
@@ -84,12 +89,14 @@ public class Conversation extends Thread
 					text = (String) in1.readObject();//.nextLine();
 					System.out.println(name1 + " says \"" + text + "\"");
 					out2.writeObject(name1 + " says \"" + text + "\"");//.println(text);//(name1 + " says \"" + text + "\"");
+					out2.flush();
 				}
 				else
 				{
 					text = (String) in2.readObject();//.nextLine();
 					System.out.println(name2 + " says \"" + text + "\"");
 					out1.writeObject(name2 + " says \"" + text + "\"");//.println(text);//(name2 + " says \"" + text + "\"");
+					out1.flush();
 				}
 				count++;
 			}

@@ -4,7 +4,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class ServerApp  {
+public class ServerApp
+{
 
 	final private static int DEFAULT_PORT = 9999;
 
