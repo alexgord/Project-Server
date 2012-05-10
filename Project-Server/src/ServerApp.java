@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class ServerApp  {
 
 	final private static int DEFAULT_PORT = 9999;
-	
+
 	/**
 	 * @param args
 	 * @throws IOException 

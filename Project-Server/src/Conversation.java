@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Scanner;
@@ -9,8 +11,8 @@ public class Conversation extends Thread
 
 	private Socket p1, p2;
 	private String name1, name2;
-	private Scanner in1, in2;
-	private PrintStream out1, out2;
+	private ObjectInputStream in1, in2;
+	private ObjectOutputStream out1, out2;
 
 	public Conversation(String name)
 	{
@@ -37,28 +39,36 @@ public class Conversation extends Thread
 
 		try
 		{
-			in1 = new Scanner(p1.getInputStream());
-			in2 = new Scanner(p2.getInputStream());
-			out1 = new PrintStream(p1.getOutputStream());
-			out2 = new PrintStream(p2.getOutputStream());
+			in1 = new ObjectInputStream(p1.getInputStream());
+			in2 = new ObjectInputStream(p2.getInputStream());
+			out1 = new ObjectOutputStream(new PrintStream(p1.getOutputStream()));
+			out2 = new ObjectOutputStream(new PrintStream(p2.getOutputStream()));
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
-			this.closeAll();
+			try
+			{
+				this.closeAll();
+			}
+			catch (IOException e1)
+			{
+				System.out.println("Connections could not be closed!");
+				e1.printStackTrace();
+			}
 			return;
 		}
 
 		try
 		{
-			out1.println("1");
-			out2.println("2");
-			
+			out1.writeObject("1");//.println("1");
+			out2.writeObject("2");
+
 			/*name1 = in1.nextLine();
 			System.out.println("First person is " + name1);
 			name2 = in2.nextLine();
 			System.out.println("Second person is " + name2);
-			
+
 			String message = "Welcome to Knight's Watch " + getName() + ", you are playing against ";
 			out1.println(message + name2);
 			out2.println(message + name1);
@@ -71,15 +81,15 @@ public class Conversation extends Thread
 				String text;
 				if(count % 2 == 0)
 				{
-					text = in1.nextLine();
+					text = (String) in1.readObject();//.nextLine();
 					System.out.println(name1 + " says \"" + text + "\"");
-					out2.println(text);//(name1 + " says \"" + text + "\"");
+					out2.writeObject(name1 + " says \"" + text + "\"");//.println(text);//(name1 + " says \"" + text + "\"");
 				}
 				else
 				{
-					text = in2.nextLine();
+					text = (String) in2.readObject();//.nextLine();
 					System.out.println(name2 + " says \"" + text + "\"");
-					out1.println(text);//(name2 + " says \"" + text + "\"");
+					out1.writeObject(name2 + " says \"" + text + "\"");//.println(text);//(name2 + " says \"" + text + "\"");
 				}
 				count++;
 			}
@@ -87,12 +97,20 @@ public class Conversation extends Thread
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			this.closeAll();
+			try
+			{
+				this.closeAll();
+			} 
+			catch (IOException e1)
+			{
+				System.out.println("Connections could not be closed!");
+				e1.printStackTrace();
+			}
 			return;
 		}
 	}
 
-	private void closeAll()
+	private void closeAll() throws IOException
 	{
 		if(in1 != null)
 			in1.close();
