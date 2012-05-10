@@ -26,7 +26,7 @@ public class Conversation extends Thread {
 	public void run() {
 
 		if(p1 == null || p2 == null) {
-			System.err.println("Conversation " + getName() + " is missing a participant.");
+			System.err.println("Knight's Watch " + getName() + " is missing a participant.");
 			return;
 		}
 
