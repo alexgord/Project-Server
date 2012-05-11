@@ -64,51 +64,35 @@ public class Conversation extends Thread
 
 		try
 		{
-			out1.writeObject("1");//.println("1");
+			out1.writeObject("1");
 			out1.flush();
 			out2.writeObject("2");
 			out2.flush();
 
-			/*name1 = in1.nextLine();
-			System.out.println("First person is " + name1);
-			name2 = in2.nextLine();
-			System.out.println("Second person is " + name2);
-
-			String message = "Welcome to Knight's Watch " + getName() + ", you are playing against ";
-			out1.println(message + name2);
-			out2.println(message + name1);
-
-			out1.println("Please start the conversation.");*/
-
 			int count = 0;
+			Move move;
 			while(true)
 			{
-				Move move;
-				System.out.print(this.getName() + " ");
 				if(count % 2 == 0)
 				{
-					move = (Move) in1.readObject();//.nextLine();
-					if (move.getResultingGameStatus() == GameStatus.CONTINUE)
-					{
-						System.out.println("White has made this move:  From " + move.getA().toString() + " to " + move.getB().toString());//(name1 + " says \"" + text + "\"");
-						out2.writeObject(move);//(name1 + " says \"" + text + "\"");//.println(text);//(name1 + " says \"" + text + "\"");
-						out2.flush();
-					}
-					else
+					move = (Move) in1.readObject();
+					System.out.print("Game " + this.getName() + " ");
+					System.out.println("White has made this move:  From " + move.getA().toString() + " to " + move.getB().toString());//(name1 + " says \"" + text + "\"");
+					out2.writeObject(move);
+					out2.flush();
+					if (move.getResultingGameStatus() != GameStatus.CONTINUE)
 					{
 						break;
 					}
 				}
 				else
 				{
-					move = (Move) in2.readObject();//.nextLine();
-					if (move.getResultingGameStatus() == GameStatus.CONTINUE)
-					{
-						System.out.println("Black has made this move:  From " + move.getA().toString() + " to " + move.getB().toString());//(name2 + " says \"" + text + "\"");
-						out1.writeObject(move);//(name2 + " says \"" + text + "\"");//.println(text);//(name2 + " says \"" + text + "\"");
-						out1.flush();
-					}
-					else
+					move = (Move) in2.readObject();
+					System.out.print("Game " + this.getName() + " ");
+					System.out.println("Black has made this move:  From " + move.getA().toString() + " to " + move.getB().toString());//(name2 + " says \"" + text + "\"");
+					out1.writeObject(move);
+					out1.flush();
+					if (move.getResultingGameStatus() != GameStatus.CONTINUE)
 					{
 						break;
 					}
@@ -116,6 +100,19 @@ public class Conversation extends Thread
 				count++;
 			}
 			this.closeAll();
+			System.out.print("Game " + this.getName() + " has finished, and ");
+			switch (move.getResultingGameStatus())
+			{
+			case WHITEWINS:
+				System.out.println("White has won!");
+				break;
+			case BLACKWINS:
+				System.out.println("Black has won!");
+				break;
+			case DRAW:
+				System.out.println("it was a draw!");
+				break;
+			}
 		}
 		catch (Exception e)
 		{
