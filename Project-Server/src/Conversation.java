@@ -83,19 +83,20 @@ public class Conversation extends Thread
 			int count = 0;
 			while(true)
 			{
-				String text;
+				Move move;
+				System.out.print(this.getName() + " ");
 				if(count % 2 == 0)
 				{
-					text = (String) in1.readObject();//.nextLine();
-					System.out.println(name1 + " says \"" + text + "\"");
-					out2.writeObject(name1 + " says \"" + text + "\"");//.println(text);//(name1 + " says \"" + text + "\"");
+					move = (Move) in1.readObject();//.nextLine();
+					System.out.println("White has made this move:  From " + move.getA().toString() + " to " + move.getB().toString());//(name1 + " says \"" + text + "\"");
+					out2.writeObject(move);//(name1 + " says \"" + text + "\"");//.println(text);//(name1 + " says \"" + text + "\"");
 					out2.flush();
 				}
 				else
 				{
-					text = (String) in2.readObject();//.nextLine();
-					System.out.println(name2 + " says \"" + text + "\"");
-					out1.writeObject(name2 + " says \"" + text + "\"");//.println(text);//(name2 + " says \"" + text + "\"");
+					move = (Move) in2.readObject();//.nextLine();
+					System.out.println("Black has made this move:  From " + move.getA().toString() + " to " + move.getB().toString());//(name2 + " says \"" + text + "\"");
+					out1.writeObject(move);//(name2 + " says \"" + text + "\"");//.println(text);//(name2 + " says \"" + text + "\"");
 					out1.flush();
 				}
 				count++;

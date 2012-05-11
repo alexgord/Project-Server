@@ -40,7 +40,7 @@ public class ServerApp
 			try 
 			{
 				Conversation conv = new Conversation(Integer.toString(++count));
-				System.out.println("Starting conversation " + count + ".");
+				System.out.println("Starting Game " + count + ".");
 
 				conv.setPerson(1, server.accept());
 				System.out.println("First person has joined.");

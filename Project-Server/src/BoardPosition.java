@@ -1,7 +1,14 @@
+import java.io.Serializable;
+import java.util.ArrayList;
 
-public class BoardPosition
+
+public class BoardPosition  implements Serializable
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1004705995234741264L;
 	private int row;
 	private int collumn;
 	
@@ -35,5 +42,20 @@ public class BoardPosition
 	public boolean isOutOfBounds()
 	{
 		return row < 0 || row > 6 || collumn < 0 || collumn > 6;
+	}
+	
+	public String toString()
+	{
+		ArrayList<String> colNames = new ArrayList<String>();
+
+		colNames.add("a");
+		colNames.add("b");
+		colNames.add("c");
+		colNames.add("d");
+		colNames.add("e");
+		colNames.add("f");
+		String r = "";
+		r += 6 - row + colNames.get(collumn);
+		return r;
 	}
 }
