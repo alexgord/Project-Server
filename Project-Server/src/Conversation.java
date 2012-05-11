@@ -45,7 +45,7 @@ public class Conversation extends Thread
 			out2.flush();
 			in1 = new ObjectInputStream(p1.getInputStream());
 			in2 = new ObjectInputStream(p2.getInputStream());
-			
+
 		}
 		catch (IOException e)
 		{
@@ -88,19 +88,34 @@ public class Conversation extends Thread
 				if(count % 2 == 0)
 				{
 					move = (Move) in1.readObject();//.nextLine();
-					System.out.println("White has made this move:  From " + move.getA().toString() + " to " + move.getB().toString());//(name1 + " says \"" + text + "\"");
-					out2.writeObject(move);//(name1 + " says \"" + text + "\"");//.println(text);//(name1 + " says \"" + text + "\"");
-					out2.flush();
+					if (move.getResultingGameStatus() == GameStatus.CONTINUE)
+					{
+						System.out.println("White has made this move:  From " + move.getA().toString() + " to " + move.getB().toString());//(name1 + " says \"" + text + "\"");
+						out2.writeObject(move);//(name1 + " says \"" + text + "\"");//.println(text);//(name1 + " says \"" + text + "\"");
+						out2.flush();
+					}
+					else
+					{
+						break;
+					}
 				}
 				else
 				{
 					move = (Move) in2.readObject();//.nextLine();
-					System.out.println("Black has made this move:  From " + move.getA().toString() + " to " + move.getB().toString());//(name2 + " says \"" + text + "\"");
-					out1.writeObject(move);//(name2 + " says \"" + text + "\"");//.println(text);//(name2 + " says \"" + text + "\"");
-					out1.flush();
+					if (move.getResultingGameStatus() == GameStatus.CONTINUE)
+					{
+						System.out.println("Black has made this move:  From " + move.getA().toString() + " to " + move.getB().toString());//(name2 + " says \"" + text + "\"");
+						out1.writeObject(move);//(name2 + " says \"" + text + "\"");//.println(text);//(name2 + " says \"" + text + "\"");
+						out1.flush();
+					}
+					else
+					{
+						break;
+					}
 				}
 				count++;
 			}
+			this.closeAll();
 		}
 		catch (Exception e)
 		{

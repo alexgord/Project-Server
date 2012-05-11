@@ -83,7 +83,7 @@ public class Player
 
 		b = new BoardPosition(row, getNumForCollumn(collumn));
 
-		r = new Move(a, b);
+		r = new Move(a, b, GameStatus.CONTINUE);
 
 		return r;
 	}
