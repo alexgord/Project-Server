@@ -1,3 +1,10 @@
+/**********************************Move CLASS INFO************************************************
+
+This class is responsible for getting and setting the GameStatus, and getting and setting the 
+BoardPosition for specific coordinates.  
+
+**************************************************************************************************/
+
 import java.io.Serializable;
 
 

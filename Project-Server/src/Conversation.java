@@ -3,7 +3,7 @@
 This class is responsible for receiving input streams from the clients, sending object streams
 to the clients, broadcasting the outcome at the end of the game, and closing the connections
 
-*********************************************************************************************/
+**************************************************************************************************/
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
