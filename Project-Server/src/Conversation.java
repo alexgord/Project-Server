@@ -1,16 +1,20 @@
+/**********************************Conversation CLASS INFO*****************************************
+
+This class is responsible for receiving input streams from the clients, sending object streams
+to the clients, broadcasting the outcome at the end of the game, and closing the connections
+
+*********************************************************************************************/
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintStream;
 import java.net.Socket;
-import java.util.Scanner;
 
 
 public class Conversation extends Thread
 {
 
 	private Socket p1, p2;
-	private String name1, name2;
 	private ObjectInputStream in1, in2;
 	private ObjectOutputStream out1, out2;
 

@@ -1,8 +1,20 @@
+/**************************************ID BLOCK*******************************************************
+
+Due Date:			May 11th, 2012
+Software Designers:	Alexandre Simard & Peter Johnston
+Course:				420-603  Winter 2012
+Deliverable:		Project --- Knight's Watch --- Server
+Description:		This program creates a Socket Server which listens to a specific port.  When
+					2 players connect to the server, it commences a game.  The server can support
+					any number of games, the only limitation is the memory.  During the game, the
+					server receives and transmits moves to and from the players, and keeps track of
+					the game (board, who's turn, etc.).  When one of the clients detects an end of 
+					game, it transmits it to the server, then to the other client, and the game ends.
+					
+******************************************************************************************************/
+
 import java.io.IOException;
-import java.io.PrintStream;
 import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Scanner;
 
 public class ServerApp
 {
@@ -16,9 +28,7 @@ public class ServerApp
 	 */
 	public static void main(String[] args) throws IOException
 	{
-		//@SuppressWarnings("unused")
-		//Game game1 = new Game();
-
+		//set port and start server
 		int port = args.length > 0 ? Integer.parseInt(args[0]) :  DEFAULT_PORT;
 		ServerSocket server = null;
 		try
